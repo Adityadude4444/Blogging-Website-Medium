@@ -1,0 +1,21 @@
+{
+  "name": "@aditya_4444/medium-zod1",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [
+    "zod",
+    "validation",
+    "scoped-package",
+    "medium-example"
+  ],
+  "author": "Aditya<VITB>",
+  "license": "ISC",
+  "description": "A scoped package using Zod for data validation.",
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}
