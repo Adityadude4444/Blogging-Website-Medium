@@ -17,25 +17,40 @@ userRoute.post("/signup", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-  const { success } = signupinput.safeParse(body);
-  if (!success) {
+  const parsed = signupinput.safeParse(body);
+
+  if (!parsed.success) {
     c.status(411);
     return c.json({
-      messsage: "Please provide valid credentials",
+      message: "Invalid input",
+      error: parsed.error.issues,
     });
   }
+
   try {
+    const existingUser = await prisma.user.findUnique({
+      where: { email: body.username }, // `username` is the email
+    });
+
+    if (existingUser) {
+      c.status(409); // Conflict
+      return c.json({ error: "User already exists" });
+    }
+
     const user = await prisma.user.create({
       data: {
-        email: body.email,
+        email: body.username,
         password: body.password,
+        name: body.name || null,
       },
     });
+
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
     return c.json({ jwt });
   } catch (e) {
-    c.status(403);
-    return c.json({ error: "error while signing up" });
+    console.error("Error during signup:", e);
+    c.status(500);
+    return c.json({ error: "Internal server error" });
   }
 });
 
@@ -47,7 +62,8 @@ userRoute.post("/signin", async (c) => {
   const body = await c.req.json();
   const user = await prisma.user.findUnique({
     where: {
-      email: body.email,
+      email: body.username,
+      password: body.password,
     },
   });
 

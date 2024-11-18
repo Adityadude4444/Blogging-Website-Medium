@@ -1,4 +1,4 @@
-# Medium Clone 🌐
+# Blogging Website 🌐
 
 This project is a Medium-like blogging platform built with cutting-edge tools and technologies to demonstrate a modern, scalable, and flexible full-stack application. It features a backend powered by Cloudflare Workers and Hono, and a database managed using Prisma with PostgreSQL. For input validation, Zod is utilized, ensuring type-safe and clean APIs. Additionally, a custom NPM package was created to manage shared functions and types between the frontend and backend.
 
