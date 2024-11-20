@@ -16,10 +16,10 @@ export const blogRoute = new Hono<{
 }>();
 
 blogRoute.use("/*", async (c, next) => {
-  const header = c.req.header("authorization") || "";
+  const token = c.req.header("authorization") || "";
 
   try {
-    const res: any = await verify(header, c.env.JWT_SECRET);
+    const res = await verify(token, c.env.JWT_SECRET);
 
     if (res && typeof res.id === "string") {
       c.set("userId", res.id);
@@ -30,7 +30,9 @@ blogRoute.use("/*", async (c, next) => {
     }
   } catch (e) {
     c.status(403);
-    return c.json({ error: "unauthorized" });
+    console.log("Authorization header:", c.req.header("authorization"));
+
+    return c.json({ error: "unauthorized", e });
   }
 });
 
@@ -89,6 +91,7 @@ blogRoute.get("/get/:id", async (c) => {
         title: true,
         content: true,
         id: true,
+        createdAt: true,
         author: {
           select: {
             name: true,
@@ -117,6 +120,7 @@ blogRoute.get("/bulk", async (c) => {
       title: true,
       content: true,
       id: true,
+      createdAt: true,
       author: {
         select: {
           name: true,
