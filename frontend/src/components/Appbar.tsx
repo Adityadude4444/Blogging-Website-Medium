@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Appbar = () => {
   const navigator = useNavigate();
+  const [showLogout, setShowLogout] = useState(false);
+
   return (
     <div className="flex justify-between items-center px-4 py-2 h-[20%] cursor-pointer">
       <img
@@ -22,8 +25,25 @@ const Appbar = () => {
         >
           New
         </button>
-        <div className="relative inline-flex items-center justify-center w-9 h-9 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-          <span className="text-xs text-gray-600 dark:text-gray-300">U</span>
+        <div
+          className="relative"
+          onMouseEnter={() => setShowLogout(true)}
+          onMouseLeave={() => setShowLogout(false)}
+        >
+          <div className="relative inline-flex items-center justify-center w-9 h-9 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+            <span className="text-xs text-gray-600 dark:text-gray-300">U</span>
+          </div>
+          {showLogout && (
+            <button
+              className="absolute top-12 left-1/2 transform -translate-x-1/2 w-20 bg-white text-gray-800 py-1 rounded-md shadow-md hover:bg-gray-200"
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigator("/signup");
+              }}
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </div>

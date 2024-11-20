@@ -12,7 +12,6 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
     password: "",
     name: "",
   });
-  console.log(postinputs);
   async function Senddata() {
     try {
       const response = await axios.post(

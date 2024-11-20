@@ -1,8 +1,13 @@
 import Appbar from "../components/Appbar";
+import Loading from "../components/minicomponents/Loading";
 import { useblog } from "../hooks/Useblog";
 import Blog from "./Blog";
 
 const Blogs = () => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
   const { loading, blogs } = useblog();
   return (
     <div>
@@ -10,7 +15,12 @@ const Blogs = () => {
       <div className="flex justify-center">
         <div>
           {loading ? (
-            <div>Loading</div>
+            <div>
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+            </div>
           ) : (
             <div>
               {blogs.map((blog) => (
@@ -19,7 +29,7 @@ const Blogs = () => {
                   title={blog.title}
                   content={blog.content}
                   authorname={blog.author.name || "Anonymous"}
-                  date={"3rd Nov 2024"}
+                  date={blog?.createdAt ? formatDate(blog.createdAt) : ""}
                   id={blog.id}
                 />
               ))}

@@ -6,6 +6,7 @@ interface Blog {
   title: string;
   content: string;
   id: string;
+  createdAt: string;
   author: {
     name: string;
   };
