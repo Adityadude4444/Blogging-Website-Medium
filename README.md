@@ -1,5 +1,7 @@
 # Blogging Website 🌐
 
+https://github.com/user-attachments/assets/ecaf4b5e-1c19-4fec-a88a-c2bd49db0609
+
 This project is a Medium-like blogging platform built with cutting-edge tools and technologies to demonstrate a modern, scalable, and flexible full-stack application. It features a backend powered by Cloudflare Workers and Hono, and a database managed using Prisma with PostgreSQL. For input validation, Zod is utilized, ensuring type-safe and clean APIs. Additionally, a custom NPM package was created to manage shared functions and types between the frontend and backend.
 
 ---
